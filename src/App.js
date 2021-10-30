@@ -1,13 +1,16 @@
 //import logo from './logo.svg';
 import './App.css';
-import WalletCardEthers from'./WalletCardEthers';
+
+import Header from './Header';
 
 function App() {
 
   return (
-    <div className="App">
-    <WalletCardEthers/>
-    </div>
+     <>
+       <div className="container__app">
+         <Header />
+       </div>
+       </>
   );
 }
 
