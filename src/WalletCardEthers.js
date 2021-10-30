@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import {ethers} from 'ethers'
-import './WalletCard.css'
 
 
 const Web3 = require("web3");
@@ -26,7 +25,7 @@ const contract = new Web3Client.eth.Contract(minABI, tokenAddress);
 async function getBalance() {
 	const result = await contract.methods.balanceOf(walletAddress).call(); // 29803630997051883414242659
 	const format = Web3Client.utils.fromWei(result); // 29803630.997051883414242659
-console.log(format);
+	console.log(format);
 }
 
 
@@ -52,15 +51,15 @@ const WalletCardEthers = () => {
 
 
 			window.ethereum.request({ method: 'eth_requestAccounts'})
-			.then(result => {
-				setConnButtonText('Wallet Connected');
-				setDefaultAccount(result[0]);
+				.then(result => {
+					setConnButtonText('Wallet Connected');
+					setDefaultAccount(result[0]);
 
 
-			})
-			.catch(error => {
-				setErrorMessage(error.message);
-			});
+				})
+				.catch(error => {
+					setErrorMessage(error.message);
+				});
 
 		} else if (!window.ethereum){
 			console.log('Need to install MetaMask');
@@ -69,35 +68,37 @@ const WalletCardEthers = () => {
 	}
 
 
-useEffect(() => {
+	useEffect(() => {
 
-	if(defaultAccount){
-		const tokenAddress = "0xfac3a1ed2480da8f5c34576c0da13f245239717d";
-		const contract = new Web3Client.eth.Contract(minABI, tokenAddress);
+		if(defaultAccount){
+			const tokenAddress = "0xfac3a1ed2480da8f5c34576c0da13f245239717d";
+			const contract = new Web3Client.eth.Contract(minABI, tokenAddress);
 
-		async function getBalanceOf() {
-			const result = await contract.methods.balanceOf(defaultAccount).call(); // 29803630997051883414242659
-			const format = Web3Client.utils.fromWei(result); // 29803630.997051883414242659
-			return format;
+			async function getBalanceOf() {
+				const result = await contract.methods.balanceOf(defaultAccount).call(); // 29803630997051883414242659
+				const format = Web3Client.utils.fromWei(result); // 29803630.997051883414242659
+				Web3Client.eth.getBalance(defaultAccount,(err, bal)=> {
+					setUserBalance(format)
+				})
+			}
+
+			const welldone = getBalanceOf();
+
+			console.log(welldone, "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
+			// getBalance(defaultAccount)
+			// .then(state => {
+			// 	setUserBalance(getBalance(state));
+			// })
 		}
-
-		const welldone = getBalanceOf();
-
-		console.log(welldone, "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-
-	getBalance(defaultAccount)
-	.then(state => {
-		setUserBalance(getBalance(state));
-	})
-	}
-}, [defaultAccount]);
+	}, [defaultAccount]);
 
 	console.log(defaultAccount, "to jest konto");
 	console.log(getBalance(), "wywołanie funkcji w consoli");
 
 	return (
 		<div className='walletCard'>
-		<h4> Connection to MetaMask using ethers.js </h4>
+			<h4> Connection to MetaMask using ethers.js </h4>
 			<button onClick={connectWalletHandler}>{connButtonText}</button>
 			<div className='accountDisplay'>
 				<h3>Address: {defaultAccount}</h3>
