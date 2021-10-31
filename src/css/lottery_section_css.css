@@ -1,0 +1,25 @@
+.container__data-token {
+    box-sizing: border-box;
+    padding: 5px 15px;
+    margin-left: 15px;
+    min-width: 480px;
+    max-width: 999px;
+    color: #ffffff;
+    background-image: linear-gradient(to bottom right, #000000, #614051);
+    font-family: 'PT Sans Narrow', sans-serif;
+}
+
+.lottery__modal {
+    background-color: #8b72be;
+    width: 500px;
+    height: 500px;
+    margin: 100px 100px;
+}
+
+.lottery__btn__close {
+    box-sizing: border-box;
+    margin: 20px 20px;
+    padding: 2px;
+    background-color: #fcd9d6;
+    color: #ff0789;
+}

@@ -4,9 +4,7 @@ import {ethers} from 'ethers'
 
 const Web3 = require("web3");
 const providerIsNew = "https://floral-billowing-glade.bsc.quiknode.pro/29ea12cb502ef5492fc8c5800415e29b801c933b/"
-const Web3Client = new Web3(new Web3.providers.HttpProvider(providerIsNew));
-
-//provider by QuickNode
+const Web3Client = new Web3(new Web3.providers.HttpProvider(providerIsNew));                //provider by QuickNode
 
 
 const minABI = [
@@ -21,6 +19,8 @@ const minABI = [
 ];
 
 
+
+
 const WalletSetup = () => {
 
     const [errorMessage, setErrorMessage] = useState(null);
@@ -30,12 +30,13 @@ const WalletSetup = () => {
     const [provider, setProvider] = useState(null);
 
 
+
     const connectWalletHandler = () => {
         if (window.ethereum && defaultAccount == null) {
             setProvider(new ethers.providers.Web3Provider(window.ethereum));
 
 
-            window.ethereum.request({ method: 'eth_requestAccounts'})
+            window.ethereum.request({method: 'eth_requestAccounts'})
                 .then(result => {
                     setConnButtonText('Wallet Connected');
                     setDefaultAccount(result[0]);
@@ -46,7 +47,7 @@ const WalletSetup = () => {
                     setErrorMessage(error.message);
                 });
 
-        } else if (!window.ethereum){
+        } else if (!window.ethereum) {
             console.log('Need to install MetaMask');
             setErrorMessage('Please install MetaMask browser extension to interact');
         }
@@ -55,8 +56,8 @@ const WalletSetup = () => {
 
     useEffect(() => {
 
-        if(defaultAccount){
-            const tokenAddress = "0xfac3a1ed2480da8f5c34576c0da13f245239717d";
+        if (defaultAccount) {
+            const tokenAddress = "0xb6d48fcef36e19681ee29896b19c1b6cbd1eab1b";
             const contract = new Web3Client.eth.Contract(minABI, tokenAddress);
 
             async function getBalanceOf() {
@@ -66,7 +67,7 @@ const WalletSetup = () => {
                 const rounded = num.toFixed(2);    // changing value to 2 numbers;
 
 
-                Web3Client.eth.getBalance(defaultAccount,(err, bal)=> {    /// setting ballance as promise
+                Web3Client.eth.getBalance(defaultAccount, (err, bal) => {    /// setting ballance as promise
                     setUserBalance(rounded);
 
 
@@ -76,48 +77,54 @@ const WalletSetup = () => {
                     var num = parseFloat(format);
                     var rounded = num.toFixed(2);
 
-                    console.log(rounded);
+                    return rounded;
                 }
 
                 calculate();
             }
 
 
-            const welldone = getBalanceOf();
+            const wellbal = getBalanceOf();
 
 
         }
     }, [defaultAccount]);
 
 
-    const shortcutf = () => {                      //// short long wallet Address into short version
+        const shortcutf = () => {                      //// short long wallet Address into short version
 
-        if (defaultAccount === null) {
-            return;
-        } else {
-            const shortcut = defaultAccount.slice(0, 5);
-            const shortcutEnd = defaultAccount.slice(37,42);
-            const finalCut = shortcut + "..." + shortcutEnd;  // build a popular construction of address
+            if (defaultAccount === null) {             /// slice not working on null
+                return;
+            } else {
+                const shortcut = defaultAccount.slice(0, 5);
+                const shortcutEnd = defaultAccount.slice(37, 42);
+                const finalCut = shortcut + "..." + shortcutEnd;  // build a popular construction of address
 
-            return finalCut;
+                return finalCut;
+            }
+
         }
+
+
+        return (
+            <div className='walletCard'>
+                <button className="btn__connect" onClick={connectWalletHandler}>{connButtonText}</button>
+                <div className='accountDisplay'>
+                    <h3>Address: <span>{shortcutf()}</span></h3>
+                </div>
+                <div className='balanceDisplay'>
+                    <h3>Balance: <span className="header__balance">{userBalance}</span> FAN</h3>
+                    <button>_buy ticket_</button>
+                </div>
+                {errorMessage}
+            </div>
+        );
+
 
     }
 
-    console.log(shortcutf());
 
-    return (
-        <div className='walletCard'>
-            <button onClick={connectWalletHandler}>{connButtonText}</button>
-            <div className='accountDisplay'>
-                <h3>Address: {shortcutf()}</h3>
-            </div>
-            <div className='balanceDisplay'>
-                <h3>Balance: {userBalance} FAN</h3>
-            </div>
-            {errorMessage}
-        </div>
-    );
-}
 
 export default WalletSetup;
+
+
