@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {ethers} from 'ethers'
+import DataToken from "../DataToken";
+import Lottery_Setup from "./Lottery_Setup";
 
 
 const Web3 = require("web3");
@@ -86,9 +88,17 @@ const WalletSetup = () => {
 
             const wellbal = getBalanceOf();
 
-
         }
     }, [defaultAccount]);
+
+    console.log(defaultAccount , "czy wyświetla czy nie?")
+
+
+
+
+
+
+
 
 
         const shortcutf = () => {                      //// short long wallet Address into short version
@@ -107,6 +117,9 @@ const WalletSetup = () => {
 
 
         return (
+            <>
+                <div className="container__header">
+                    <div className="logo__top"><img src="logo_fan.png" /></div>
             <div className='walletCard'>
                 <button className="btn__connect" onClick={connectWalletHandler}>{connButtonText}</button>
                 <div className='accountDisplay'>
@@ -114,16 +127,27 @@ const WalletSetup = () => {
                 </div>
                 <div className='balanceDisplay'>
                     <h3>Balance: <span className="header__balance">{userBalance}</span> FAN</h3>
-                    <button>_buy ticket_</button>
                 </div>
                 {errorMessage}
             </div>
+                </div>
+                <div className="section__line"></div>
+
+
+    <DataToken />
+                <div className="container__lottery">
+                    <div className="lottery__parent">
+                    <Lottery_Setup />
+                   <p className="lottery__text__standard">loteria</p>
+                    <button>_buy ticket_</button>
+                    </div>
+                </div>
+                <div className="section__line"></div>
+    </>
         );
 
 
     }
-
-
 
 export default WalletSetup;
 

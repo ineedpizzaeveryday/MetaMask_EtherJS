@@ -16,9 +16,6 @@ function App() {
      <>
        <div className="container__app">
          <Header />
-           <DataToken />
-           <LotterySection>
-           </LotterySection>
            <Form />
 
 
