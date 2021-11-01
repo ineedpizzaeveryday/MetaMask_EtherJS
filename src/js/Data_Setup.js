@@ -19,12 +19,14 @@ const minABI = [
 ];
 
 
-const WalletSetup = () => {
+const DataSetup = () => {
 
     const [errorMessage, setErrorMessage] = useState(null);
     const [burnBalance, setBurnBalance] = useState("0,00");
     const [circBalance, setCircBalance] = useState("0,00");
     const [buybackBalance, setBuybackBalance] = useState("0,00");
+    const [draw, setDraw] = useState([]);
+
 
             const tokenAddress = "0xb6d48fcef36e19681ee29896b19c1b6cbd1eab1b";              /// adresses to empty new file?
             const burnAddress = "0x000000000000000000000000000000000000dead"
@@ -131,6 +133,25 @@ const WalletSetup = () => {
     getBalanceOfCirc()
     getBalanceOfBB()
 
+
+
+
+
+
+        function random(min, max) {
+            let rand = min + Math.random() * (max + 1 - min);
+            return Math.floor(rand);
+        }
+
+        const handleClick = e => {
+            const nums = Array.from({length: 5}, () => random(1, 9));
+            let k = setDraw(nums);
+            return {...draw};
+        };
+
+
+
+
     return (
         <div>
 
@@ -138,13 +159,16 @@ const WalletSetup = () => {
                 <p>BURNED BALANCE: <span>{burnBalance}</span> FAN</p>
                 <h3>CIRCULATION: <span>{circBalance}</span> FAN</h3>
                 <p>BUYBACK SALDO: <span>{buybackBalance}</span> FAN</p>
+                <p>{draw}</p>
             </div>
             <p>    </p>
-            <p> cdn   </p>
+            <p>{"---------------"}</p>
+            <button onClick={handleClick}>Start</button>
+
 
             {errorMessage}
         </div>
     );
 }
 
-export default WalletSetup;
+export default DataSetup;

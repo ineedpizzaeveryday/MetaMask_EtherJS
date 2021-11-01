@@ -10,8 +10,10 @@ const LotterySection = () => {
 
     return (
         <>
+
             <div className="container__data-token">
                 <Lottery_Setup />
+
             </div>
             <div className="section__line"></div>
         </>
