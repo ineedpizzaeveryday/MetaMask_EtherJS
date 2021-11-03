@@ -1,5 +1,4 @@
 import React, { useState, useEffect} from 'react';
-import {ethers} from 'ethers';
 import { db } from "./firebase";
 
 const Lottery_Setup = () => {
@@ -7,6 +6,7 @@ const Lottery_Setup = () => {
 
     const [draw, setDraw] = useState([]);
     const [winners, setWinner] = useState([]);
+    const [winbox, setWinbox] = useState("none");
 
         useEffect(() => {
             db.collection("winner")
@@ -69,18 +69,34 @@ const Lottery_Setup = () => {
   //
 
     var yourcodenumber = parseInt(newyourcode, 10);
-    
 
 
-   if ( newyourcode == winvariable) {                                    // OTWIERA MODAL
-       console.log("WYGRANAAAA")
-   }
 
-   else { console.log("Przegrana :(")}
+
+
+
+    useEffect(() => {
+        if (yourcodenumber === winvariable) {                                    // OTWIERA MODAL
+            console.log("WYGRANAAAA")
+            setWinbox("block");
+        } else {
+            console.log("Przegrana :(")
+        }                                                // too many renders - useEffect
+    },[draw])
+
+
+    console.log(yourcodenumber, typeof(yourcodenumber), winvariable , typeof(winvariable), newyourcode, typeof(newyourcode));
 
 
         return (
             <>
+                <div className="lottery__win__box" style={{display: winbox}}>
+                    <h1>CONGRATULATION ! YOU WIN !</h1>
+                <form><label>WKLEJ SWÓJ KOD</label><input />
+                <button>SUBMIT</button>
+                </form>
+                </div>
+
                 <button onClick={handleClick}>Start</button>
                 <p>{draw} :yours code of lottery </p>
 

@@ -6,16 +6,9 @@ import Lottery_Setup from "./Lottery_Setup";
 
 
 const Web3 = require("web3");
-const providerIsNew = "https://floral-billowing-glade.bsc.quiknode.pro/29ea12cb502ef5492fc8c5800415e29b801c933b/"
+// const providerIsNew = "https://floral-billowing-glade.bsc.quiknode.pro/29ea12cb502ef5492fc8c5800415e29b801c933b/"
 // const providerIsNew = "http://localhost:7545"
 const Web3Client = new Web3(new Web3.providers.HttpProvider(providerIsNew));            //provider by QuickNode
-
-
-const Moralis_Node = "https://speedy-nodes-nyc.moralis.io/0e3338fc0e4dbffd4bd14412/bsc/mainnet";
-let web32 = new Web3(new Web3.providers.HttpProvider(Moralis_Node));
-
-
-
 
 
 const minABI = [
@@ -32,7 +25,7 @@ const minABI = [
 
 
 
-const WalletSetup = () => {
+const WalletSetup4444444 = () => {
 
     const [errorMessage, setErrorMessage] = useState(null);
     const [transactionSuccessMessage, setTransactionSuccessMessage] = useState(null);
@@ -189,6 +182,6 @@ const WalletSetup = () => {
 
 }
 
-export default WalletSetup;
+export default WalletSetup4444444;
 
 
